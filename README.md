@@ -14,10 +14,10 @@ _the teeny-tiny, zero-dependency object observer_
 const WatchMeNow = require(`watch-me-now`)
 
 // define a callback for when changes occur
-const onStateChange = ({type, current, old, path}) => {
-    console.log(`\nonStateChange() - ${type}, path: ${path}`)
-    console.log({current: JSON.stringify(current)})
-    console.log({old: JSON.stringify(old)})
+const onStateChange = ({type, current, old, path, key}) => {
+    console.log(`\nonStateChange() - ${type}, ${path.length ? `path: ${path}, ` : ``}key: ${key}`)
+    console.log({new_state: JSON.stringify(current)})
+    console.log({old_state: JSON.stringify(old)})
 }
 
 // instantiate an object to observe

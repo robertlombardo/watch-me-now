@@ -1,6 +1,6 @@
 {
   "name": "watch-me-now",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Wrap an object (such as application state or data model) to listen for changes!",
   "main": "index.js",
   "scripts": {
