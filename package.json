@@ -1,6 +1,6 @@
 {
   "name": "watch-me-now",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Wrap an object (such as application state or data model) to listen for changes!",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/robertlombardo/watch-me.git"
+    "url": "git+https://github.com/robertlombardo/watch-me-now.git"
   },
   "keywords": [
     "watch",
@@ -19,7 +19,7 @@
   "author": "Robert Lombardo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/robertlombardo/watch-me/issues"
+    "url": "https://github.com/robertlombardo/watch-me-now/issues"
   },
-  "homepage": "https://github.com/robertlombardo/watch-me#readme"
+  "homepage": "https://github.com/robertlombardo/watch-me-now#readme"
 }
