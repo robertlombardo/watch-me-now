@@ -7,7 +7,7 @@ const WatchMeNow = (me, changeCallback, path=``) => {
 
             switch (typeof val) {
                 case `object`:
-                    if (Array.isArray(val)) extendMutableArrayFuncs(val, watched, changeCallback, path)
+                    if (Array.isArray(val)) extendMutableArrayFuncs(val, watched, changeCallback, path, key)
 
                     // proxy any nested objects as well 
                     watched[key] = WatchMeNow(val, changeCallback, `${path}.${key}`)
@@ -16,7 +16,7 @@ const WatchMeNow = (me, changeCallback, path=``) => {
                     if (watched.propertyIsEnumerable(key)) {
                         for (let nested_key in val) {
                             const nested_val = val[nested_key]
-                            if (Array.isArray(nested_val)) extendMutableArrayFuncs(nested_val, val, changeCallback, path)
+                            if (Array.isArray(nested_val)) extendMutableArrayFuncs(nested_val, val, changeCallback, path, key)
                         }
                     }
 
@@ -30,10 +30,27 @@ const WatchMeNow = (me, changeCallback, path=``) => {
                 type    : `PROPERTY_SET`,
                 current : shallowCopy(watched), 
                 old,
-                path
+                path,
+                key,
             })
 
             return true
+        },
+
+        deleteProperty: (watched, key) => {
+            if (key in watched) {
+                const old = shallowCopy(watched)
+
+                delete watched[key]
+                
+                changeCallback({
+                    type    : `PROPERTY_DELETE`,
+                    current : shallowCopy(watched),
+                    old,
+                    path,
+                    key,
+                })
+            }
         }
     })
 }
@@ -41,7 +58,7 @@ module.exports = WatchMeNow
 
 const shallowCopy = obj => JSON.parse(JSON.stringify(obj))
 
-const extendMutableArrayFuncs = (array, watched, changeCallback, path) => {
+const extendMutableArrayFuncs = (array, watched, changeCallback, path, key) => {
     // extend mutable Array methods to invoke callback when changes are made
     [
         `fill`,
@@ -65,6 +82,7 @@ const extendMutableArrayFuncs = (array, watched, changeCallback, path) => {
                     current : shallowCopy(watched),
                     old,
                     path,
+                    key,
                 })
                 
                 return res
